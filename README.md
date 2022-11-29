@@ -1,3 +1,6 @@
+Resumen para Sistemas Operativos usando el siguiente contenido:
+[a relative link](Resumenes/00%20-%20Introducci%C3%B3n.md)
+
 **Teoricas**: https://campus.exactas.uba.ar/course/view.php?id=3298&section=6
 
 **Practicas**: https://campus.exactas.uba.ar/course/view.php?id=3298&section=7
