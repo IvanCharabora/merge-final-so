@@ -1,5 +1,23 @@
-Resumen para Sistemas Operativos usando el siguiente contenido:
-[a relative link](Resumenes/00%20-%20Introducci%C3%B3n.md)
+<h1>Resumen de Sistemas Operativos </h1>
+
+<h2>Temario</h2>
+
+* [Introducción](Resumenes/00%20-%20Introducci%C3%B3n.md)
+* [Procesos, señales y syscalls](Resumenes/01%20-%20Procesos%2C%20se%C3%B1ales%20y%20syscalls.md)
+* [Comunicación interprocesos](Resumenes/02%20-%20Comunicaci%C3%B3n%20interprocesos.md)
+* [Scheduling](Resumenes/03%20-%20Scheduling.md)
+* [Gestión de memoria](Resumenes/04%20-%20Gesti%C3%B3n%20de%20memoria.md)
+* [Threads](Resumenes/05%20-%20Threads.md)
+* [Sistema de E-S + drivers](Resumenes/06%20-%20Sistema%20de%20E-S%20%2B%20drivers.md)
+* [Sistemas de archivos](Resumenes/07%20-%20Sistemas%20de%20archivos.md)
+* [Sistemas distribuidos](Resumenes/09%20-%20Sistemas%20distribuidos.md)
+* [Seguridad](Resumenes/10%20-%20Seguridad.md)
+* [Virtualización](Resumenes/11%20-%20Virtualizaci%C3%B3n.md)
+
+
+<br><br>
+
+<h3>Información sacada las siguientes fuentes:</h3>
 
 **Teoricas**: https://campus.exactas.uba.ar/course/view.php?id=3298&section=6
 
