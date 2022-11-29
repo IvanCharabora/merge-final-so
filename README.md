@@ -16,7 +16,7 @@
 * [Virtualización](Resumenes/11%20-%20Virtualizaci%C3%B3n.md)
 
 
-<br><br>
+<br>
 
 <h3>Información sacada las siguientes fuentes:</h3>
 
