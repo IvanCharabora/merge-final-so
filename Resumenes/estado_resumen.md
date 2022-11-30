@@ -3,7 +3,7 @@ En la siguiente tabla se podrá ver que resumen y de que temas fui usando para h
 
 | |Teórica | Practica | Resumen Gian | Resumen Furfi | Resumen Talenbaum | Resumen Guido | Mis Resumenes |	Preguntas
 |---------|----------|--------------|---------------|-------------------|---------------|---------------| ---------------| ---------------|
-| 00 | <ul><li>[x] done</li> | [x] | [x] | [x] | [x] | [x] | [x] | [x] |
+| 00 | <ul><li>[x] </li> | [x] | [x] | [x] | [x] | [x] | [x] | [x] |
 | 01 | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [x] |
 | 02 | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [x] |
 | 03 | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [x] |
