@@ -1,8 +1,19 @@
 En la siguiente tabla se podrá ver que resumen y de que temas fui usando para hacer el resumen final. Si está todo lleno, significa que use y leí todos los resumenes.
 
+make checkbox table in markdown
+
+| Tema | Resumen | Resumen | Resumen | Resumen | Resumen | Resumen | Resumen |
+|------|---------|---------|---------|---------|---------|---------|---------|
+| 00 - Introducción | [x] | [x] | [x] | [x] | [x] | [x] | [x] |
+
+| Tema | Resumen | Resumen |
 
 | |Teórica | Practica | Resumen Gian | Resumen Furfi | Resumen Talenbaum | Resumen Guido | Mis Resumenes |	Preguntas
 |---------|----------|--------------|---------------|-------------------|---------------|---------------| ---------------| ---------------|
+
+
+
+
 | 00 | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> |
 | 01 | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> |
 | 02 | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> |
