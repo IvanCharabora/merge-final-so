@@ -41,3 +41,6 @@
 **Mis resumenes**:
 * **Primer Parcial**: https://docs.google.com/document/d/1xjzXEGbPy_Psyu_4RtJzzPMZcWfAb1VhN1lzat9mBkk
 * **Segundo Parcial**: https://drive.google.com/drive/u/1/folders/1HkZQ8iwL6c0Vhg8LU-K2QvtlWEbrVAQP
+
+
+[**Estado del resumen**](Resumenes\estado_resumen.md)
