@@ -15,8 +15,6 @@
 * [Seguridad](Resumenes/10%20-%20Seguridad.md)
 * [Virtualización](Resumenes/11%20-%20Virtualizaci%C3%B3n.md)
 
- - [x] Checkbox checked
-
 <br>
 
 <h3>Información sacada las siguientes fuentes:</h3>
