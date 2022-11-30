@@ -3,7 +3,7 @@ En la siguiente tabla se podrá ver que resumen y de que temas fui usando para h
 
 | |Teórica | Practica | Resumen Gian | Resumen Furfi | Resumen Talenbaum | Resumen Guido | Mis Resumenes |	Preguntas
 |---------|----------|--------------|---------------|-------------------|---------------|---------------| ---------------| ---------------|
-| 00 |  [ ] | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> | 
+| 00 | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> | 
 | 01 | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> |
 | 02 | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> |
 | 03 | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> | <li> [ ] </li> |
