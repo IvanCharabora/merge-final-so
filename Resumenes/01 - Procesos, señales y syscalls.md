@@ -22,7 +22,7 @@ Estos estados se van modificando de la siguiente manera:
 ![estados_procesos](/Resumenes/public/estados_procesos.png)
 
 <h3>Scheduling en Procesos</h3>
-Acordarse que solo un proceso a la vez puede estar en la CPU. Entonces hay que dejarlo un "ratito", a ese "ratito" lo llamamos quantum. En general, cuando se acaba el quantum le toca el turno al siguiente proceso. 
+Acordarse que solo un proceso a la vez puede estar en la CPU. Entonces hay que dejarlo un "ratito", a ese "ratito" lo llamamos quantum. En general, cuando se acaba el quantum le toca el turno al siguiente proceso (preemption). 
 
 Scheduler: componente esencial del kernel. Su función es decidir a que proceso le corresponde ejecutar en cada momento. Hay varias formas de decidir esto. Que proceso elegir depende de la política de scheduling que se esté usando. 
 
@@ -50,6 +50,7 @@ Un proceso puede hacer llamadas al sistema (como fork, exec, write, etc). En tod
 Las syscalls proveen una interfaz a los servicios brindados por el sistema operativo: la API del SO.
 La biblioteca estándar de C incluye funciones que no son syscalls, pero las utilizan para funcionar. Por ejemplo, printf() invoca a la syscall write().
 
+Las system calls disponibles varían de un sistema operativo a otro, aunque la mayoría de conceptos detrás de las system calls suelen ser similares. Buscando que los programas sean portables entre los distintos sistemas operativos, se creó un estándar llamado POSIX. Decimos que un sistema es POSIX compatible si implementa la interfaz de programación de aplicaciones (API) descrita en el estándar POSIX.
 
 <h2>Un poco de E/S y señales</h2>
 La E/S es muy lenta. Quedarse bloqueado esperando es un desperdicio de tiempo. Existen otras alternativas:
@@ -63,3 +64,7 @@ Multiprogramación: la capacidad de un SO de tener varios procesos en ejecución
 * No bloqueante: hago el system call que retorna enseguida y puedo hacer otras cosas. Debo enterarme de alguna manera si mi E/S terminó.
 
 Señales: mecanismo que incorporan los sistemas operativos POSIX, y que permite notificar a un proceso la ocurrencia de un evento. Cuando un proceso recibe una señal, su ejecución se interrumpe y se ejecuta un handler. Cada tipo de señal tiene asociado un handler por defecto, que puede ser modificado mediante la syscall signal(). Toda señal tiene un número asociado que lo identifica. Hay señales que no pueden ser ignoradas ni reemplazadas sus handlers como (SIGKILL, SIGSTOP). Se puede envíar una señal a un proceso mediante la syscall kill().
+
+strace: herramienta que nos permite ver las syscalls que hace un programa. Por ejemplo, strace ls nos muestra las syscalls que hace ls.
+
+ptrace: para monitorear un proceso. Permite monitorear señales, syscalls e instrucciones. Cuando se genera uno de estos eventos el proceso hijo se detiene y el padre tiene que reanudarlo. Tambien se puede modificar el estado del proceso hijo.

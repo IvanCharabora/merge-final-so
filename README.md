@@ -32,6 +32,8 @@
 
 * **Resumen Guido**: https://www.cubawiki.com.ar/images/b/ba/Resumen_so_tagliavini_v2.pdf
 
+* **Resumen Pau**: https://docs.google.com/document/d/1GCgKRl6F2ZYdkoi1NGor3ZlAeJxAL7ngQhahi8hVV6o/edit
+
 
 **Preguntas para autoevaluarse**: 
 * https://www.cubawiki.com.ar/index.php/Sistemas_Operativos#Preguntas_de_Final_.28Oral.29 
@@ -41,7 +43,3 @@
 **Mis resumenes**:
 * **Primer Parcial**: https://docs.google.com/document/d/1xjzXEGbPy_Psyu_4RtJzzPMZcWfAb1VhN1lzat9mBkk
 * **Segundo Parcial**: https://drive.google.com/drive/u/1/folders/1HkZQ8iwL6c0Vhg8LU-K2QvtlWEbrVAQP
-
-<br><br>
-
-[**Estado del resumen**](Resumenes/estado_resumen.md)
