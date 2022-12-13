@@ -69,19 +69,6 @@ interrupcion (cambio de contexto), la atrapa el kernel, cambio de privilegio, co
 
 y en las diapos decia q los parametros se pasan usando registros o una tabla en memoria
 
-<h3>Modificaciones para soportar threads</h3>
-En los sistemas operativos que soportan threads, la PCB debe expandirse para incluir información de cada thread individual. 
-
-Un thread es la unidad básica de utilización de CPU en un sistema. Se compone de un thread id (tid), un program counter, un set de registros, y un stack. 
-Otros elementos como el mapeo de memoria (la sección de código, sección de datos, área de heap), y recursos como archivos abiertos, son del proceso que tiene los threads, y son compartidos entre todos los threads de un mismo proceso. 
-
-De modo que, para expandir la PCB y soportar threads, debe haber entradas para cada thread para almacenar (como mínimo): tid, program counter y registros, stack pointer, estado de scheduling y pid (o algún puntero) del proceso que contiene al thread. 
-
-
-Otra: Se agregan las TCB. Como un thread es un hijo del proceso y comparten memoria, no es necesario tener un PCB por cada thread donde se guardan las paginas de memoria que tiene, los archivos abiertos, etc. Lo que si es necesario es lo minimo indispensable para correr ese thread, que se guarda en la TCB: - Program Counter - Stack Pointer - Thread ID - Estado de los registros - Pointer al PCB del padre - Estado en scheduling (BLOCKED, RUNNING, etc)
-
-![threadsPCB](/Resumenes/public/threadsPCB.png)
-
 <h2>Un poco de E/S y señales</h2>
 La E/S es muy lenta. Quedarse bloqueado esperando es un desperdicio de tiempo. Existen otras alternativas:
 
@@ -99,6 +86,20 @@ strace: herramienta que nos permite ver las syscalls que hace un programa. Por e
 
 ptrace: para monitorear un proceso. Permite monitorear señales, syscalls e instrucciones. Cuando se genera uno de estos eventos el proceso hijo se detiene y el padre tiene que reanudarlo. Tambien se puede modificar el estado del proceso hijo.
 
+
+
+<h3>Modificaciones para soportar threads</h3>
+En los sistemas operativos que soportan threads, la PCB debe expandirse para incluir información de cada thread individual. 
+
+Un thread es la unidad básica de utilización de CPU en un sistema. Se compone de un thread id (tid), un program counter, un set de registros, y un stack. 
+Otros elementos como el mapeo de memoria (la sección de código, sección de datos, área de heap), y recursos como archivos abiertos, son del proceso que tiene los threads, y son compartidos entre todos los threads de un mismo proceso. 
+
+De modo que, para expandir la PCB y soportar threads, debe haber entradas para cada thread para almacenar (como mínimo): tid, program counter y registros, stack pointer, estado de scheduling y pid (o algún puntero) del proceso que contiene al thread. 
+
+
+Otra: Se agregan las TCB. Como un thread es un hijo del proceso y comparten memoria, no es necesario tener un PCB por cada thread donde se guardan las paginas de memoria que tiene, los archivos abiertos, etc. Lo que si es necesario es lo minimo indispensable para correr ese thread, que se guarda en la TCB: - Program Counter - Stack Pointer - Thread ID - Estado de los registros - Pointer al PCB del padre - Estado en scheduling (BLOCKED, RUNNING, etc)
+
+![threadsPCB](/Resumenes/public/threadsPCB.png)
 
 <h2>Funciones reentrantes</h3>
 El término función reentrante hace referencia a que múltiples instancias de la función pueden estar ejecutándose en simultáneo (sin que nada explote). Es decir, se puede "entrar" de nuevo al código antes de haber terminado de ejecutar una instancia anterior. Es un concepto estrechamente relacionado con la sincronización (en particular la exclusión mutua) y el manejo de recursos compartidos. Un ejemplo donde hace falta que el código sea reentrante es cuando hay llamadas recursivas. Además, muchas partes del sistema operativo tienen que ser reentrantes: un ejemplo típico es el código de los drivers.
