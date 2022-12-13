@@ -23,6 +23,16 @@ Estos estados se van modificando de la siguiente manera:
 
 ![estados_procesos](/Resumenes/public/estados_procesos.png)
 
+<h3>Arbol de procesos</h3>
+Todos los procesos están organizados jerárquicamente como un árbol. Cuando el SO comienza, lanza un proceso que se suele llamar init. Por eso es importante la capacidad de lanzar un proceso hijo.
+
+<h3>Mapa de memoria de un proceso</h3>
+
+![memoriaProceso](/Resumenes/public/memoriaProcso.png)
+
+A process is more than the program code, which is sometimes known as the text section. It also includes the current activity, as represented by the value of the program counter and the contents of the processor’s registers. 
+A process generally also includes the process stack, which contains temporary data (such as function parameters, return addresses, and local variables), and a data section, which contains global variables. A process may also include a heap,which is memory that is dynamically allocated during process run time.
+
 <h3>Scheduling en Procesos</h3>
 Acordarse que solo un proceso a la vez puede estar en la CPU. Entonces hay que dejarlo un "ratito", a ese "ratito" lo llamamos quantum. En general, cuando se acaba el quantum le toca el turno al siguiente proceso (preemption). 
 
@@ -35,9 +45,9 @@ Para cambiar el programa que se ejecuta en la CPU debemos:
 * cargar los registros
 * cargar el IP
 
-A esto se le llama context switch. El IP y demás registros se guardan en una estructura llamada PCB (cada proceso tiene uno propio). La PCB guarda información como el estado del proceso, el PC, registros, etc.
+A esto se le llama context switch. El IP y demás registros se guardan en una estructura llamada PCB (cada proceso tiene uno propio). La PCB guarda información como el estado del proceso, el PC, registros, file descriptors abiertos, pid, información de la memoria del proceso.
 
-Luego, existe una tabla de procesos que contiene la información de todos los procesos que están corriendo en el sistema donde cada entrada de la tabla es una PCB.
+Luego, existe una tabla de procesos que contiene la información de todos los procesos que están corriendo en el sistema donde cada entrada de la tabla es una PCB. 
 
 ![context_switch](/Resumenes/public/context_switch.png)
 
@@ -53,6 +63,24 @@ Las syscalls proveen una interfaz a los servicios brindados por el sistema opera
 La biblioteca estándar de C incluye funciones que no son syscalls, pero las utilizan para funcionar. Por ejemplo, printf() invoca a la syscall write().
 
 Las system calls disponibles varían de un sistema operativo a otro, aunque la mayoría de conceptos detrás de las system calls suelen ser similares. Buscando que los programas sean portables entre los distintos sistemas operativos, se creó un estándar llamado POSIX. Decimos que un sistema es POSIX compatible si implementa la interfaz de programación de aplicaciones (API) descrita en el estándar POSIX.
+
+Para hacer una syscall el software y hardware hacen lo siguiente:
+interrupcion (cambio de contexto), la atrapa el kernel, cambio de privilegio, corre la rutina de atencion (el código de la syscall), vuelve a la función (cambio de contexto y de privilegio)
+
+y en las diapos decia q los parametros se pasan usando registros o una tabla en memoria
+
+<h3>Modificaciones para soportar threads</h3>
+En los sistemas operativos que soportan threads, la PCB debe expandirse para incluir información de cada thread individual. 
+
+Un thread es la unidad básica de utilización de CPU en un sistema. Se compone de un thread id (tid), un program counter, un set de registros, y un stack. 
+Otros elementos como el mapeo de memoria (la sección de código, sección de datos, área de heap), y recursos como archivos abiertos, son del proceso que tiene los threads, y son compartidos entre todos los threads de un mismo proceso. 
+
+De modo que, para expandir la PCB y soportar threads, debe haber entradas para cada thread para almacenar (como mínimo): tid, program counter y registros, stack pointer, estado de scheduling y pid (o algún puntero) del proceso que contiene al thread. 
+
+
+Otra: Se agregan las TCB. Como un thread es un hijo del proceso y comparten memoria, no es necesario tener un PCB por cada thread donde se guardan las paginas de memoria que tiene, los archivos abiertos, etc. Lo que si es necesario es lo minimo indispensable para correr ese thread, que se guarda en la TCB: - Program Counter - Stack Pointer - Thread ID - Estado de los registros - Pointer al PCB del padre - Estado en scheduling (BLOCKED, RUNNING, etc)
+
+![threadsPCB](/Resumenes/public/threadsPCB.png)
 
 <h2>Un poco de E/S y señales</h2>
 La E/S es muy lenta. Quedarse bloqueado esperando es un desperdicio de tiempo. Existen otras alternativas:
@@ -70,3 +98,11 @@ Señales: mecanismo que incorporan los sistemas operativos POSIX, y que permite 
 strace: herramienta que nos permite ver las syscalls que hace un programa. Por ejemplo, strace ls nos muestra las syscalls que hace ls.
 
 ptrace: para monitorear un proceso. Permite monitorear señales, syscalls e instrucciones. Cuando se genera uno de estos eventos el proceso hijo se detiene y el padre tiene que reanudarlo. Tambien se puede modificar el estado del proceso hijo.
+
+
+<h2>Funciones reentrantes</h3>
+El término función reentrante hace referencia a que múltiples instancias de la función pueden estar ejecutándose en simultáneo (sin que nada explote). Es decir, se puede "entrar" de nuevo al código antes de haber terminado de ejecutar una instancia anterior. Es un concepto estrechamente relacionado con la sincronización (en particular la exclusión mutua) y el manejo de recursos compartidos. Un ejemplo donde hace falta que el código sea reentrante es cuando hay llamadas recursivas. Además, muchas partes del sistema operativo tienen que ser reentrantes: un ejemplo típico es el código de los drivers.
+
+Relación con threads: si hay chances de que una misma función vaya a ser  ejecutada por distintos threads, y no hay garantías de que lo vayan a hacer de manera exclusiva, entonces el código sí o sí tiene que ser reentrante.
+
+
