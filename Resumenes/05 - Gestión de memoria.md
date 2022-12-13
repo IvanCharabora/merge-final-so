@@ -1,3 +1,5 @@
+[Volver](/README.md)
+
 <h1>Gestión de memoria</h1>
 Como el procesador y la información, la memoria también se comparte tanto para comunicar procesos como para implementar multiprogramación. Para esto, hay que hablar del manejador de memoria o memory manager que se encarga de: 
 

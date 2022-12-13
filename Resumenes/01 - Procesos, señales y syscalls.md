@@ -1,3 +1,5 @@
+[Volver](/README.md)
+
 <h1>Procesos, señales y syscalls</h1>
 <h2>Procesos</h2>
 Es una instancia de un programa en ejecución. A cada proceso se le asigna un identificador único llamado pid. Visto desde memoria un proceso contiene el stack del proceso, el área de texto (código de máquina del programa), el área de datos (donde se almacena el heap de memoria). Cada proceso tiene su propia CPU virtual, es decir cada proceso piensa que tiene una CPU propia.

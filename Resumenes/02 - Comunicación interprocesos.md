@@ -1,3 +1,5 @@
+[Volver](/README.md)
+
 <h1>Comunicación interprocesos</h1>
 La comunicación entre procesos sirve para compartir información, mejorar la velocidad de procesamiento, modularizar.
 Se puede lograr IPC vía memoria compartida (se establece un área compartida donde ambos pueden leer/escribir), algún otro recurso compartido (archivo, base de datos, etc) o pasaje de mensajes.

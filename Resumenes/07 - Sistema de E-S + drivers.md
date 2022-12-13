@@ -1,3 +1,5 @@
+[Volver](/README.md)
+
 <h1>Sistema de E/S + drivers</h1>
 Hay muchos tipos de dispositivos de E/S que pueden ser categorizados como de almacenamiento, comunicaciones y otros. Nos vamos a concentrar principalmente en los de almacenamiento.Tradicionalmente los SO se tenían que preocupar de discos rígidos, unidades de cinta, discos virtuales, etc. Para nosotros un dispositivo de E/S va a tener el dispositivo físico y un controlador del dispositivo (interactúa con el SO mediante algún de bus o registro)
 

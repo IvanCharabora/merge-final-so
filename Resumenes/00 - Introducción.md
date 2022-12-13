@@ -1,3 +1,5 @@
+[Volver](/README.md)
+
 <h1>Introducción</h1>
 <h2>Sistema Operativo</h2>
 Pieza de software que actúa como intermediario entre el hardware y los programas del usuario para que el software específico pueda usar correctamente el HW pero también para que los programas de usuario no tengan que lidiar con las cosas del HW. Corre en nivel de privilegio 0. Además se encarga de administrar los recursos del sistema, controlando el acceso al hardware y coordinando su uso.

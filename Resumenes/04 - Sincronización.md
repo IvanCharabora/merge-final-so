@@ -1,3 +1,5 @@
+[Volver](/README.md)
+
 <h1>Sincronización</h1>
 Toda ejecución debería dar un resultado equivalente a alguna ejecución secuencial de los mismos procesos. 
 

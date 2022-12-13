@@ -1,1 +1,1 @@
-* TRIM
+* TRIM: https://hardzone.es/tutoriales/componentes/comando-trim-ssd/ y https://www.techtarget.com/searchstorage/definition/TRIM

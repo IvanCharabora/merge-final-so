@@ -1,3 +1,5 @@
+[Volver](/README.md)
+
 <h1>Virtualización, contenedores y cloud</h1>
 Virtualización: es la posibilidad de que un conjunto de recursos físicos se vean como varias copias de recursos lógicos.
 Desde hace rato (por lo menos 1960) tener máquinas virtuales. Ie, de mentira. Los objetivos son variados: 
