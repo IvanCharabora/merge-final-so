@@ -89,6 +89,7 @@ ptrace: para monitorear un proceso. Permite monitorear señales, syscalls e inst
 
 
 <h3>Modificaciones para soportar threads</h3>
+ un thread es la unidad básica de utilización de la CPU.
 En los sistemas operativos que soportan threads, la PCB debe expandirse para incluir información de cada thread individual. 
 
 Un thread es la unidad básica de utilización de CPU en un sistema. Se compone de un thread id (tid), un program counter, un set de registros, y un stack. 

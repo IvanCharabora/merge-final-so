@@ -6,7 +6,7 @@ Se puede lograr IPC vía memoria compartida (se establece un área compartida do
 
 ![ipc_formas](/Resumenes/public/ipc_formas.png)
 
-Entrando más en detale en pasaje de mensajes: los mensajes pueden tener una longitud fija (más facil pero la programación de tareas más tediosa) o variable (sistema más complejo pero más agilidad a la hora de programar tareas). 
+Entrando más en detalle en pasaje de mensajes: los mensajes pueden tener una longitud fija (más facil pero la programación de tareas más tediosa) o variable (sistema más complejo pero más agilidad a la hora de programar tareas). 
 Para que dos procesos se comuniquen debe existir un link de comunicación entre ellos. Para esto se debe tener en cuenta el tipo de comunicación que se desea ofrecer: 
 * Direccionamiento: 
     * Conexión directa: cada proceso debe explicitar el nombre del proceso con el que desea comunicarse. Por ejemplo send(P, message) o receive(Q, message).
@@ -43,7 +43,7 @@ Si es bidireccional, es half-duplex (para mandar información se debe esperar a 
 
 ![pipes](/Resumenes/public/pipes.png)
 ![pipes2](/Resumenes/public/pipes2.png)	
-//La pipe se crea vía pipe(pipefd[2]) donde pipefd[0] es un fd que apunta a donde se lee y [1] a donde se escribe
+//El pipe se crea vía pipe(pipefd[2]) donde pipefd[0] es un fd que apunta a donde se lee y [1] a donde se escribe
 
 //Si hago close fd[0] en el padre y close fd[1] en el hijo estoy cerrando la lectura del parent y la escritura del hijo.
 
