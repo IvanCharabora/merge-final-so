@@ -52,7 +52,11 @@ El algoritmo de Peterson es un algoritmo que usa dos variables (flag y turn) par
 
 Para entrar a la sección crítica, un proceso P_1 setea flag[i] en true y pone turn en el valor 0, así, si el otro proceso quiere entrar a la sección crítica, puede hacerlo. Si ambos procesos quieren entrar al mismo tiempo a CRIT, turn va a ser 1 y 0 casi al mismo tiempo. Sólo una de estas asignaciones va a durar (la otra se escribe inmediatamente). 
 
+<h1>7</h1>
+<h2>que beneficio tengo por escribir los datos secuencialmente en CD/DVD por ejemplo?</h2>
+performance, algoritmo sencillo, menos metadatos porque puedo decir donde empieza y termina un file
 
-
+<h2>SAN</h2>
+Es una red privada que conecta multiples servidores y unidades de almacenamiento. Permite tener multiples servidores y almacenamientos conectados a la vez, y el almacenamiento para un server se puede reservar dinamicamente. Por ejemplo, si un server esta con poco almacenamiento de disco, SAN puede reservarle mas a el. SAN le permite a clusters de servers compartir el mismo almacenamiento.
 
 * TRIM: https://hardzone.es/tutoriales/componentes/comando-trim-ssd/ y https://www.techtarget.com/searchstorage/definition/TRIM

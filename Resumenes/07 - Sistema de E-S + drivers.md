@@ -5,7 +5,7 @@ Hay muchos tipos de dispositivos de E/S que pueden ser categorizados como de alm
 
 ![adminES](/Resumenes/public/adminES.png)
 
-Drivers: componentes de software que conocen las particularidades del hardware contra el que hablan. Corren con máximo privilegio. Pueden interactuar con los dispositivos mediante polling (chequear constantemente si el dispositivo está listo o si se comunicó, facil pero consume mucha CPU), interrupciones (el dispositivo genera una interrupción, la desventaja es que los cambios de contexto son impredecibles) o DMA (controlador DMA y cuando termina intterumpe a la CPU).
+Drivers: componentes de software que conocen las particularidades del hardware contra el que hablan. Corren con máximo privilegio. Pueden interactuar con los dispositivos mediante polling (chequear constantemente si el dispositivo está listo o si se comunicó, facil pero consume mucha CPU), interrupciones (el dispositivo genera una interrupción, la desventaja es que los cambios de contexto son impredecibles) o DMA (controlador DMA y cuando termina intterumpe a la CPU). Si hay un bug, se puede colgar todo el sistema porque el driver corre a nivel kernel. Tambien podria explotarse esta vulnerabilidad para ejecutar cualquier codigo a nivel kernel
 
 El subsistema de E/S se ocupa de proveerle al programador una API sencilla: open, close, read, write, seek. 
 
@@ -29,6 +29,18 @@ Una de las claves para obtener un buen rendimiento de E/S es manejar apropiadame
 * Scan/ascensor: ir primero en un sentido, atendiendo los pedidos que encuentro en el camino, luego en el otro. El tiempo de espera no es tan uniforme.
 
 En la práctica esto se usa combinado con prioridades y otras hierbas.
+
+SSD vs HDD:
+* HDD: es un disco magnetico que contiene partes mecanicas en movimiento, como un brazo, platos, etc. Sus tiempos de lectura y escritura son lentos debido a estas partes mecanicas que deben moverse para leer y escribir. La transferencia de datos es secuencial, osea que escribe datos contiguos.
+No tiene problemas como el SSD para escribir sobre datos que ya no sirven. Por eso lo unico que hace es marcar los datos como que ya no sirven y luego los sobreescribe sin problema.
+
+
+* SSD: No contiene partes mecanicas, solo partes electronicas. Su tiempo de escritura y lectura es rapido, y la transferencia de datos es random access, osea que puede escribir datos en cualquier direccion arbitraria.. Además, consumen menos energía. Sin embargo, son más caros que los discos tradicionales, tienen menos capacidad y tiempos de vida más cortos. Otro problema que tiene este tipo de discos es llamado write amplification, que puede acortar la vida util del SSD ya que este tiene una cantidad limitada de writes a sus celdas. Write amplificaton es un problema que consiste en que para una escritura logica al disco, se realizan multiples fisicas. El SO utiliza un comando llamado TRIM para indicarle al SSD que bloques de datos no son mas necesarios y pueden ser borrados.
+
+    En SSD no es necesario hacer un analisis entre distintos algoritmos basado en los cilindros que utilizan a diferencia de HDD porque SSD permite acceder a cualquier posicion aleatoriamente, por lo que el *seek time* y *rotational latency* no existen. Debido a esto las opciones de scheduling en disco que existen en HDD en este caso dan igual, y la opcion de FCFS que podria no ser la mejor en HDD aca va bien porque no hay delay.
+
+    TRIM lo que hace es marcar aquellos bloques del SSD que están listos para ser borrados, es decir, en lugar de tener al SSD todo el rato realizando operaciones de lectura y escritura, marca los bloques para su borrado de manera posterior, o lo que es lo mismo, todas las operaciones de borrado se realizan a la vez. Esto optimiza bastante el rendimiento del SSD ya que dichas operaciones de borrado se realizan cuando el equipo no está utilizando el SSD.
+
 
 Gestión del disco: 
 * Formateo: Se trata de poner en cada sector unos códigos que luego sirven a la controladora de disco para efectuar detección y corrección de errores. (para ver si anda mal)
