@@ -267,7 +267,17 @@ Descripción: hay una variable compartida donde los escritores necesitan acceso 
 <h3> Dining Philosophers </h3>
 Descripción: hay 5 filósofos que comparten 5 tenedores. Cada filósofo necesita 2 tenedores para comer.
 
-COMPLETAR
+Lo importante es que, según Lynch, no hay solución correcta en la que todos los filósofos actúen igual, o en donde todos los tenedores sean iguales (o sea, soluciones simétricas). Las soluciones correctas deben funcionar de forma asimétrica (o sea, que los filósofos hagan cosas distintas, o que los tenedores sean distinguibles unos de los otros)
+1. Enumerar los recursos (Tenedores) o procesos (filósofos).
+
+    a. Se enumeran los recursos de manera consecutiva, y cada filósofo intenta levantar primero el tenedor de mayor número. De esa manera no hay deadlock, ya que no puede haber espera circular.
+    
+    b. Otra forma parecida es enumerar a los filósofos, y que los filósofos pares levanten primero el tenedor izquierdo y después el derecho. Es similar, pero levemente más optimizado que la anterior solución.
+
+2. Utilizar un árbitro (un mozo). Entonces, cada filósofo le pide permiso al mozo antes de levantar sus tenedores, y el mozo analiza si esto provocará deadlock (le da permiso solo si sabe que va a poder levantar ambos tenedores). Funciona, pero no es eficiente porque el mozo es cuello de botella, y no permite mucho paralelismo.
+
+3. Utilizar envío de mensajes entre los filósofos y se clasifican a los tenedores como “sucio” o “limpio”.
+
 
 <h3> Barberia </h3>
 Descripción: hay un barbero que duerme hasta que llega un cliente. Si el barbero está durmiendo, el cliente despierta al barbero. Si el barbero está cortando el pelo, el cliente espera. 
