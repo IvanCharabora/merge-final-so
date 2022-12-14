@@ -17,6 +17,12 @@
 
 <br>
 
+[Extras](/Resumenes/Extras.md)
+
+[Preguntas Genericas](/Resumenes/Preguntas%20Genericas.md)
+
+<br>
+
 <h3>Información sacada las siguientes fuentes:</h3>
 
 **Teoricas**: https://campus.exactas.uba.ar/course/view.php?id=3298&section=6
