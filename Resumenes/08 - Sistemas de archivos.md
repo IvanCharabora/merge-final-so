@@ -25,13 +25,13 @@ Directorios: En inodos se reserva un inodo como entrada al root directory. Por c
 
 ![diagGeneralInodos](/Resumenes/public/diagGeneralInodos.png)
 
-El superblock contiene metadatos críticos del sistema de archivos tales como información acerca del tamaño, cantidad de espacio libre y donde se encuentra los datos. 
+El superblock contiene metadatos críticos del sistema de archivos tales como información acerca del tamaño, cantidad de espacio libre y donde se encuentra los datos como numero de inodos, de bloques, de bloques libres, de inodos libres, de bloques por grupo, de inodos por grupo, comienzo de la lista de bloques libres, tamaño de bloque, tamaño de inodo.
 
 ![inodos2](/Resumenes/public/inodos2.png)
 
 Links en inodos:
-* hard links: Dos directorios apuntan al mismo inodo. 
-* symbolic links: Tengo un directorio que apunta a traves de un inodo a otro directorio que apunta a su inodo.
+* hard links: Dos directorios apuntan al mismo inodo. La data del file real no se borra hasta que se borra el ultimo hard link. La desventaja que tiene este approach es que no puede apuntarle a files de otro FS. La ventaja que tiene es que si se actualiza el file va a seguir funcionando este link.
+* symbolic links: Tengo un directorio que apunta a traves de un inodo a otro directorio que apunta a su inodo. En este caso si se borran los soft links no se borra el file original. La ventaja de este approach es que estos links pueden cruzar los limites de un disco e ir a otro disco (disk mount) o hasta hablar de files remotos en otra computadora. Lo que tiene de malo es que es lento porque hay que hacer una lectura mas a disco para obtener la posicion del file posta, y tambien que si se renombra el file por ejemplo se rompe el link ya que usa el path name y no se actualiza cuando el file apuntado se actualiza.
 
 ![linksInodos](/Resumenes/public/linksInodos.png)
 
@@ -52,7 +52,7 @@ Una manera de mejorar el rendimiento es usando una caché donde tengo una copia 
 <h3>Consistencia</h3>
 Los datos se pierden y eso puede romper el filesystem. Por eso se provee el system call fsync(), para indicarle al SO que queremos que las cosas se graben si o si. Es decir, que grabe las páginas “sucias” del caché. Sin embargo, el sistema podría interrumpirse en cualquier momento. 
 
-La alternativa más tradicional consiste en proveer un programa que restaura la consistencia del FS. Básicamente, recorre todo el disco y por cada bloque cuenta cúantos inodos le apuntan y cuántas veces aparece referenciado en la lista de bloques libres. Dependiendo de los valores de esos contadores se toman acciones correctivas, cuando se puede. La idea es agregarle al FS un bit que indique apagado normal. Si cuando el sistema levanta ese bit no está prendido, algo sucedió y se debe correr este programa. El problema es que eso toma mucho tiempo y el sistema no puede operar normalmente hasta que este proceso termine.
+La alternativa más tradicional consiste en proveer un programa que restaura la consistencia del FS (fsck). Básicamente, recorre todo el disco y por cada bloque cuenta cúantos inodos le apuntan y cuántas veces aparece referenciado en la lista de bloques libres. Dependiendo de los valores de esos contadores se toman acciones correctivas, cuando se puede. La idea es agregarle al FS un bit que indique apagado normal. Si cuando el sistema levanta ese bit no está prendido, algo sucedió y se debe correr este programa. El problema es que eso toma mucho tiempo y el sistema no puede operar normalmente hasta que este proceso termine.
 Hay algunas alternativas para evitar eso, total o parcialmente:
 * soft updates: se trata de rastrear las dependencias en los cambios de la metadata para grabar solo cuando hace falta. Sigue haciendo falta una recorrida por la lista de bloques libres, pero se puede hacer mientras el sistema está funcionando.
 * journaling: Algunos FS llevan un log o journal. Es decir, un registro de los cambios que habría que hacer. Eso se graba en un buffer circular. Cuando se baja el caché a disco, se actualiza una marca indicando qué cambios ya se reflejaron. Hay un impacto en performance pero es bajo porque este registro escribe en bloques consecutivos. 
@@ -60,3 +60,8 @@ Hay algunas alternativas para evitar eso, total o parcialmente:
 <br>
 <h3>NFS</h3>
 es un protocolo que permite acceder a FS remotos como si fueran locales utilizando RPC. La idea es que un FS remoto se monta en algún punto del sistema local y las aplicaciones acceden a archivos de ahí, sin saber que son remotos. Para poder soportar esto, los SO incorporan una capa llamada Virtual File System. Esta capa tiene vnodes por cada archivo abiertos.  Así, los pedidos de E/S que llegan al VFS son despachados al FS real, o al cliente de NFS, que maneja el protocolo de red necesario. 
+
+Esto se implementa incorporando a los SO una capa llamada Virtual File System: tiene vnodes por cada archivo abierto (si el archivo es local, se corresponden con inodos, si es remoto se almacena otra información). Los pedidos de E/S que llegan a la VFS son despachados al FS real o al cliente de NFS, que maneja el protocolo de red necesario. 
+
+<h3>VFS</h3>
+Es una capa de abstraccion arriba de un FS concreto. La idea del VFS es permitirles a aplicaciones de cliente acceder a diferentes tipos de FS concretos en una forma uniforme. Por ejemplo puede usarse para acceder a almacenamientos locales o remotos transparentemente sin que sepa el cliente. Provee un conjunto de abstracciones del FS y las operaciones que son permitidas en estas abstracciones

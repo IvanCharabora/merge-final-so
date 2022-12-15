@@ -59,4 +59,45 @@ performance, algoritmo sencillo, menos metadatos porque puedo decir donde empiez
 <h2>SAN</h2>
 Es una red privada que conecta multiples servidores y unidades de almacenamiento. Permite tener multiples servidores y almacenamientos conectados a la vez, y el almacenamiento para un server se puede reservar dinamicamente. Por ejemplo, si un server esta con poco almacenamiento de disco, SAN puede reservarle mas a el. SAN le permite a clusters de servers compartir el mismo almacenamiento.
 
-* TRIM: https://hardzone.es/tutoriales/componentes/comando-trim-ssd/ y https://www.techtarget.com/searchstorage/definition/TRIM
+Es una forma de hacer parecer que dispositivos de almacenamiento que están conectados a una red parecen estar conectados directamente a la máquina. Se acceden como si fueran archivos locales. 
+
+<h1>8</h1>
+<h2>Estructuras afectadas al hacer rm de un archivo en linux</h2>
+
+* en EXT2 se marca como unused al inode, pero se dejan intactos los pointers
+* en EXT3 se zeroean los pointers por el SO
+* se elimina el inodo de la lista del directory
+* se decrementa en 1 el link count de hard links
+* si el count llego a 0 entonces se marca al inode como eliminado
+* se marcan en el bitmap del block group a los blocks de este inodo como libres
+
+<h2>Ext2 vs Ext3</h2>
+Ext2
+the disk partition is divided into groups of blocks, irrespective of where the disk cylinder boundaries fall.
+
+The first block is the superblock. It contains information about the layout of the file system, including the number of i-nodes, the number of disk blocks, and the start of the list of free disk blocks (typically a few hundred entries). Next comes the group descriptor, which contains information about the location of the bitmaps, the number of free blocks and i-nodes in the group, and the number of directories in the group. This information is important since ext2 attempts to spread directories evenly over the disk.
+
+Two bitmaps are used to keep track of the free blocks and free i-nodes, respectiv ely, a choice inherited from the MINIX 1 file system (and in contrast to most UNIX file systems, which use a free list).
+
+Following the superblock are the i-nodes themselves. They are numbered from 1 up to some maximum. Each i-node is 128 bytes long and describes exactly one file. An i-node contains accounting information (including all the information returned by stat, which simply takes it from the i-node), as well as enough information to locate all the disk blocks that hold the file’s data. Following the i-nodes are the data blocks. All the files and directories data are stored here. If a file or directory consists of more than one block, the blocks need not be contiguous on the disk. In fact, the blocks of a large file are likely to be spread all over the disk. I-nodes corresponding to directories are dispersed throughout the disk block groups.
+
+Ext3
+
+La diferencia principal que tiene con Ext2 es que se le agrega journaling
+
+<h2>Porque se separa en block groups?</h2>
+Los block groups contienen informacion del bloque y varios inodos. La ventaja que aportan es que los files guardados en el mismo block group pueden ser accedidos con menor seek time en promedio de disco.
+
+
+<h2>ls vs ls -l</h2>
+ls solo debe acceder al inodo del directorio para listar los nombres de los archivos. ls -l, en cambio, accede al inodo de cada archivo para listar sus metadatos.
+
+
+<h2>ACLs en FAT, NTFS, EXT2</h2>
+ACL (Access Control List): Se asocia a cada objeto una lista ordenada que contiene todos los dominios (conjuto de pares objeto-permiso) que pueden acceder al objeto y cómo. Cada archivo tiene asociada una ACL. 
+
+FAT: solo se pueden marcar archivos como “SYSTEM”
+
+Ext2: dentro de la estructura del inodo hay un atributo de permisos, un user id y un group id. Los permisos pueden ser read, write y/o execute. 
+
+NTFS: A cada archivo o carpeta se le asigna un descriptor de seguridad que define su dueño y contiene 2 ACLs. La primera es se llama DAC list y define qué tipo de interacciones están permitidas o prohibidas para cada usuario o grupo de usuarios. Windows Vista agrega información MAC a la DACL. La segunda ACL, llamada System ACL, define qué interacciones con el archivo o carpeta deben ser auditadas y cuáles van a ser loggeadas cuando la actividad sea exitosa, falla o ambas. 
