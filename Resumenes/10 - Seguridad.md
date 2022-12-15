@@ -20,6 +20,8 @@ Convierte un dato de entrada en un hash. Se suele pedir que dado h sea muy difí
 Ahora esto se puede vulnerar si se usa un diccionario de contraseñas y se tiene acceso a la función de hash. Pues podes ver si encontras una contraseña que matchee con el hash que interceptaste. 
 SALT: Se usa una función de hash doble con un valor de semilla como 2do parametro. O también se puede agregar al final de la clave un valor random. Esto hace más dificil usar la estrategia anterior. Además te salva en el caso de que dos usuarios usen la misma contraseña.
 
+SALT te protege de un ataque de tabla de hash, porque este tiene una tabla con contraseñas comunes y sus hashes, pero al intentar comparar alguno de estos con las contraseñas de la base de datos no le va a servir, porque todas las contraseñas tienen un string agregado (SALT), entonces tienen que descifrar tambien el SALT o probar distintos para ver si le pegan a la correcta combinacion para que el hash final llegue a donde quieren. Para que esto sea efectivo el SALT deberia ser diferente para cada password, si es la misma no tiene mucha gracia
+
 RSA: se toman dos números de muchos digitos y se usan como clave publica y privada. Para encriptar un mensaje, interpreto cada letra como si fuera un número, y hago una cuentita que involucra la clave pública del receptor. Para descifrarlo es necesaria la clave privada, y hacer otra cuentita. Muy resumidamente el algoritmo lo que hace es tomar dos números primos grandes, y calcular el producto de ambos. Luego se elige un número e que sea coprimo con (p-1)(q-1). Luego se calcula el inverso de e en (p-1)(q-1). El inverso de e en (p-1)(q-1) es d. La clave pública es (n,e) y la clave privada es (n,d). Para encriptar un mensaje m, se calcula m^e mod n. Para desencriptar un mensaje c, se calcula c^d mod n. Anda bien porque factorizar la clave pública y descubrir el p y el q es NP.
 
 Existe un ataque llamado replay-attack que las funciones de hash no lo impiden. Se trata de que alguien intercepte un mensaje y lo reenvie. La solución es usar metodos basados en Challenge-Response donde el servidor elige un número al azar, que comunica al cliente, el cliente tiene que encriptar la contraseña utilizando ese número como semilla, el servidor hace lo mismo y se fija si coinciden. Este número va cambiando. 
@@ -31,6 +33,8 @@ Monitor de referencias: mecanismo responsable de mediar cuando los sujetos inten
 La forma más sencilla de concebir a la autorización es como una matriz de control de accesos (matriz de sujetos x objetos y en las celdas figuran las acciones permitidas). Se usa el principio de mínimo privilegio. Se suele tener permisos default para cuando se crea un objeto. A este esquema se le llama DAC (Discretionary Access Control). La idea es que los atributos de seguridad se tienen que definir explícitamente. El dueño decide los permisos. Otro esquema es MAC (Mandatory Access Control), se lo utiliza para manejar información altamente sensible, lo que se regula es el flujo de la información. Cada sujeto tiene un grado. Los objetos creados heredan el grado del último sujeto que los modificó. Un sujeto sólo puede acceder a objetos de grado menor o igual que el de el.
 
 DAC en unix son los permisos tipo rwxrw-xr--. setuid y setgid son permisos de acceso que pueden asignarse a archivos o directorios en un sistema operativo basado en Unix. Se utilizan principalmente para permitir a los usuarios del sistema ejecutar binarios con privilegios elevados temporalmente para realizar una tarea específica. Si un archivo tiene activado el bit SETUID se identifica con una “s”. sudo Permite la ejecución de comandos en nombre de otro en forma granular.
+
+SetUid: Es un bit que se encuentra en los binarios que si se encuentra en 1 indica que al correr ese binario, este va a tener los permisos del dueño del mismo. Esto sirve por ejemplo para cambiar las contraseñas en linux, ya que uno como usuario no tiene los permisos suficientes para hacerlo, pero puede correr el programa de cambio de contraseñas que tiene el SETUID prendido y superuser como owner, el cual va a permitir cambiar la contraseña ya que tiene los permisos de superuser al ser ejecutado.
 
 MAC en windows (NFTS) define cuatro niveles de integridad: System, High, Medium, Low. Achivos, carpetas, usuarios, procesos, todos tienen niveles de integridad.
 El nivel medio es el nivel por defecto para usuarios estándar y objetos sin etiquetas. El usuario no puede darle a un objeto un nivel de integridad más alto que el suyo.
@@ -66,3 +70,11 @@ Explicación ataque: Un proceso intenta crear un archivo. En este caso, el siste
 
 <h3>Malware</h3> 
 Software diseñado para llevar cabo acciones no deseadas y sin el consentimiento explícito del usuario. Puede venir de páginas webs, adjuntos de emails, vulnerabilidades en software, etc. 
+
+
+
+<h2>Mecanismos de protección</h2>
+
+* DEP (Data Execution Prevention): ninguna región de memoria debería ser al mismo tiempo escribible y ejecutable. Se implementan con ayuda del HW. Ya no se puede inyectar código. Hay técnicas para “bypassear” esta protección (como ROP)
+* ASLR (Address Space Layout Randomization): modifica de manera aleatoria la dirección base de regiones importantes de memoria entre las diferentes ejecuciones de un proceso (como Heap, Stack, etc). Impide los ataques que utilizan direcciones hardcodeadas (como la de buscar una dirección para modificar el ret o cosas así). Aunque sea más difícil, también puede ser bypasseable
+* Stack Canaries: se implementa a nivel compilador. Se coloca un valor en la pila luego de crear el stack frame. Antes de retornar de la función se verifica que el valor sea el correcto. La idea es proteger el valor de retorno de la función de posibles buffer overflows. También es bypasseable.

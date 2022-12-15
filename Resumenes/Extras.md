@@ -101,3 +101,19 @@ FAT: solo se pueden marcar archivos como “SYSTEM”
 Ext2: dentro de la estructura del inodo hay un atributo de permisos, un user id y un group id. Los permisos pueden ser read, write y/o execute. 
 
 NTFS: A cada archivo o carpeta se le asigna un descriptor de seguridad que define su dueño y contiene 2 ACLs. La primera es se llama DAC list y define qué tipo de interacciones están permitidas o prohibidas para cada usuario o grupo de usuarios. Windows Vista agrega información MAC a la DACL. La segunda ACL, llamada System ACL, define qué interacciones con el archivo o carpeta deben ser auditadas y cuáles van a ser loggeadas cuando la actividad sea exitosa, falla o ambas. 
+
+
+<h1>9</h1>
+<h2>explicar diferencias entre sistema paralelo y distribuidos</h2>
+Un sistema paralelo tiene un equipo con múltiples procesadores, que se comunican entre sí a través de memoria, bus y clock compartidos. Por otro lado, un sistema distribuido es un conjunto de nodos conectados a una red, es decir, se tienen varias computadoras autónomas que interactúan entre sí, las cuales se abstraen como un solo sistema a la vista del usuario. Las máquinas no comparten clock, memoria, ni bus de datos en un sistema distribuido.
+
+
+<h1>10</h1>
+Firma digital: La idea es que queremos enviar un mensaje grande, tipo documento, y que la otra persona tenga certeza de quien es el autor del mensaje. Podemos hacer esto con RSA, pero es muy costoso el algoritmo sobre un documento entero. Entonces la idea es que en lugar de encriptar todo el documento, se encripta un digest del mismo, que seria un hash. Luego se envia el conjunto (hash encriptado, documento original, clave publica) El que lo reciba puede desencriptar el hash con la publica, hashear el documento y comparar que estos 2 son iguales. Si esto ocurre, entonces el documento es el original del que lo envio, sino no.
+
+Certificado digital: es una forma de compartir una clave publica certificada que identifica una entidad que es dueña de la misma.
+
+Autoridad certificante: son los que emiten los certificados digitales y son una entidad confiable.
+
+<h2>Bit executed</h2>
+Con el bit NX (No eXecute) podemos evitar que se ejecute shell code luego de que se hace un buffer overflow inyectandolo
